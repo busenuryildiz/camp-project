@@ -14,7 +14,7 @@ export default function ProductDetail() {
         productService
           .getByProductId(id)
           .then((result) =>{console.log(result.data); setProduct(result.data) });
-      }, []);
+      });
 
 
     return (

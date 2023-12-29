@@ -25,7 +25,7 @@ export default function Navi() {
         <div>
             <Menu inverted fixed="top">
                 <Container>
-                    <Menu.Item as={Link} to='/home' name='home'/>
+                    <Menu.Item as={Link} to='/' name='home'/>
                     <Menu.Item as={Link} to='/messages' name='messages'/>
 
                     <Menu.Menu position='right'>
