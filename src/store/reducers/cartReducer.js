@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/cartActions";
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from "../actions/cartActions";
 import { cartItems } from "../initialValues/cartItems";
 
 const initialState = {
@@ -21,10 +21,23 @@ export default function cartReducer(state = initialState, { type, payload }) {
                 }
             }
         case REMOVE_FROM_CART:
+            const existingCartItem = state.cartItems.find((item) => item.product.id === payload.id);
+            if (existingCartItem) {
+                if (payload.quantity && existingCartItem.quantity > payload.quantity) {
+                    existingCartItem.quantity -= payload.quantity;
+                } else {
+                    return {
+                        ...state,
+                        cartItems: state.cartItems.filter((c) => c.product.id !== payload.id)
+                    };
+                }
+            }
+            return { ...state };
+        case CLEAR_CART:
             return {
                 ...state,
-                cartItems: state.cartItems.filter((c) => c.product.id !== payload.id)
-            }
+                cartItems: [], // Sepeti temizle
+            };
         default:
             return state;
     }
